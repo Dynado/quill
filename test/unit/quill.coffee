@@ -23,6 +23,14 @@ describe('Quill', ->
     )
   )
 
+  describe('destroy', ->
+    it('removes itself from array', ->
+      num = Quill.editors.length
+      @quill.destroy()
+      expect(Quill.editors.length).toEqual(num-1)
+    )
+  )
+
   describe('modules', ->
     it('addContainer()', ->
       @quill.addContainer('test-container', true)
