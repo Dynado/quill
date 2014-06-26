@@ -26,6 +26,7 @@ Themes =
 class Quill extends EventEmitter2
   @version: pkg.version
   @editors: []
+  @nextId: 1
 
   @Module: Modules
   @Theme: Themes
@@ -46,6 +47,7 @@ class Quill extends EventEmitter2
     PRE_EVENT        : 'pre-event'
     SELECTION_CHANGE : 'selection-change'
     TEXT_CHANGE      : 'text-change'
+    DESTROY          : 'destroy'
 
   @sources:
     API    : 'api'
@@ -59,7 +61,8 @@ class Quill extends EventEmitter2
     html = container.innerHTML
     @options = _.defaults(options, Quill.DEFAULTS)
     @options.modules = moduleOptions
-    @options.id = @id = "quill-#{Quill.editors.length + 1}"
+    @options.id = @id = "quill-#{Quill.nextId}"
+    Quill.nextId += 1
     @options.emitter = this
     @modules = {}
     @editor = new Editor(container, this, @options)
@@ -71,6 +74,10 @@ class Quill extends EventEmitter2
     _.each(@options.modules, (option, name) =>
       this.addModule(name, option)
     )
+
+  destroy: ->
+    _.remove(Quill.editors, this)
+    this.emit(Quill.events.DESTROY)
 
   addContainer: (className, before = false) ->
     @editor.renderer.addContainer(className, before)
