@@ -1,7 +1,7 @@
 _             = require('lodash')
 _.str         = require('underscore.string')
 pkg           = require('../package.json')
-EventEmitter2 = require('eventemitter2').EventEmitter2
+EventEmitter2 = (require('eventemitter2').EventEmitter2 or require('eventemitter2'))
 DOM           = require('./dom')
 Editor        = require('./editor')
 Format        = require('./format')

@@ -1,5 +1,5 @@
 _             = require('lodash')
-EventEmitter2 = require('eventemitter2').EventEmitter2
+EventEmitter2 = (require('eventemitter2').EventEmitter2 or require('eventemitter2'))
 DOM           = require('../dom')
 Utils         = require('../utils')
 
