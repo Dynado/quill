@@ -24,6 +24,8 @@ class PasteManager
     @container.focus()
     _.defer( =>
       doc = new Document(@container, @quill.options)
+      # give other plugins chance to change/cleanup pasted html
+      @quill.emit('paste', doc)
       delta = doc.toDelta()
       # Need to remove trailing newline so paste is inline, losing format is expected and observed in Word
       delta = delta.compose(Tandem.Delta.makeDeleteDelta(delta.endLength, delta.endLength - 1, 1))
